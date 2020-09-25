@@ -24,7 +24,21 @@ const App = () => {
     event.preventDefault()
 
     if (persons.some( person => person.name === newName)) {
-      window.alert(`${newName} is already added to phonebook`)
+      if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
+        const personsObject = {
+          name: newName,
+          number: newNumber,
+        }
+        
+        personsService
+          .update(persons.find(person => person.name === newName).id, personsObject)
+          .then(returnedPerson => {
+            setPersons(persons.map(person => person.id !== returnedPerson.id ? person : returnedPerson))
+            setNewName('')
+            setNewNumber('')
+          })
+          .catch(error => {console.log('update failed')})
+      }  
     }
     else {
       
@@ -40,6 +54,7 @@ const App = () => {
           setNewName('')
           setNewNumber('')
         })
+        .catch(error => {console.log('add failed')})
     }
   }
 
@@ -49,12 +64,14 @@ const App = () => {
     if (window.confirm(`Delete ${persons.find(person => person.id === id).name}?`)) {
       personsService
         .remove(id)
-        
-      personsService 
-        .getAll()
-        .then(returnedPersons => {
-          setPersons(returnedPersons)
-      })
+        .then(
+          personsService 
+            .getAll()
+            .then(returnedPersons => {
+              setPersons(returnedPersons)
+            })
+        )
+        .catch(error => {console.log('remove failed')})
       }
   }
 
