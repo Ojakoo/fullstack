@@ -5,12 +5,16 @@ import Filter from './components/Filter'
 import NameForm from './components/NameForm'
 import NumberForm from './components/NumberForm'
 import personsService from './services/persons'
+import Notification from './components/Notification'
+import './App.css'
 
 const App = () => {
   const [ persons, setPersons] = useState([]) 
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ currentFilter, setFilter] = useState('')
+  const [ errorMessage, setErrorMessage ] = useState(null) 
+  const [ notErrorMessage, setNotErrorMessage ] = useState(null) 
 
   useEffect(() => {
     personsService 
@@ -36,8 +40,18 @@ const App = () => {
             setPersons(persons.map(person => person.id !== returnedPerson.id ? person : returnedPerson))
             setNewName('')
             setNewNumber('')
+            setNotErrorMessage(`changed the number of ${returnedPerson.name}`)
           })
-          .catch(error => {console.log('update failed')})
+          .then( setTimeout(() => {
+              setNotErrorMessage(null)
+            }, 5000)
+          )
+          .catch(error => {
+            setErrorMessage('Update was not successful')
+            setTimeout(() => {
+              setErrorMessage(null)
+            }, 5000)
+          })
       }  
     }
     else {
@@ -53,26 +67,41 @@ const App = () => {
           setPersons(persons.concat(returnedPerson))
           setNewName('')
           setNewNumber('')
+          setNotErrorMessage(`Added ${returnedPerson.name} to phonebook.`)
         })
-        .catch(error => {console.log('add failed')})
+        .then( 
+          setTimeout(() => {setNotErrorMessage(null) }, 5000) 
+        )
+        .catch(error => {
+          setErrorMessage('Could not add')
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
+        })
     }
   }
 
   const removePerson = (id) => {
-    console.log(id)
-
     if (window.confirm(`Delete ${persons.find(person => person.id === id).name}?`)) {
+      const removeName = persons.find(person => person.id === id).name
+      
       personsService
         .remove(id)
-        .then(
-          personsService 
-            .getAll()
-            .then(returnedPersons => {
-              setPersons(returnedPersons)
-            })
+        .then(error => {
+          setNotErrorMessage(`Removed ${removeName} from phonebook.`) 
+          setTimeout(() => { setNotErrorMessage(null) }, 5000) 
+        })
+        .then(handle => {
+          setPersons(persons.filter(person => person.name !== removeName))
+        })
+        .catch(error => {
+          setErrorMessage(`Could not remove ${removeName}`)
+          setTimeout(() => { 
+            setErrorMessage(null) 
+          }, 5000)}
         )
-        .catch(error => {console.log('remove failed')})
-      }
+    }
+    
   }
 
   const handleNumberChange = (event) => {
@@ -94,7 +123,9 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Filter handleFilterChange={handleFilterChange} currentFilter={currentFilter}/>
+      <Notification message={errorMessage} type='errorBad'/>
+      <Notification message={notErrorMessage} type='errorGood' />
+      <Filter handleFilterChange={handleFilterChange} currentFilter={currentFilter} />
       <h2>add a new</h2>
       <form onSubmit={addPersons}>
         <NameForm newName={newName} handleNameChange={handleNameChange} />
