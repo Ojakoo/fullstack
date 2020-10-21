@@ -4,13 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
-    "test": "jest --verbose"
+    "start": "cross-env NODE_ENV=production node index.js",
+    "dev": "cross-env NODE_ENV=deveploment nodemon index.js",
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand"
   },
   "author": "Ilari Ojakorpi",
   "license": "ISC",
   "devDependencies": {
+    "cross-env": "^7.0.2",
     "jest": "^26.6.0",
     "nodemon": "^2.0.6"
   },
@@ -19,7 +20,8 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "lodash": "^4.17.20",
-    "mongoose": "^5.10.9"
+    "mongoose": "^5.10.9",
+    "supertest": "^5.0.0"
   },
   "jest": {
     "testEnvironment": "node"

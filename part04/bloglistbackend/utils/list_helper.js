@@ -32,7 +32,7 @@ const mostBlogs = (blogs) => {
         .groupBy('author')
         .map((objs, key) => ({
             author: key,
-            blogs: _.sumBy(objs, 1)
+            blogs: objs.length
         }))
         .value()
 

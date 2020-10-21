@@ -121,6 +121,36 @@ describe('favorite blog', () => {
 
 })
 
+describe('most blogs', () => {
+  test('of list with one is Edsger W. Dijkstra', () => {
+    const result = listHelper.mostBlogs(listWithOneBlog)
+    expect(result).toEqual(
+      {
+        author: 'Edsger W. Dijkstra',
+        blogs: 1
+      }
+    )
+  })
+
+  test('of list with multiple is Robert C. Martin', () => {
+    const result = listHelper.mostBlogs(blogs)
+    expect(result).toEqual(
+      {
+        author: 'Robert C. Martin',
+        blogs: 3
+      }
+    )
+  })
+
+  test('of list with none is {}', () => {
+    const result = listHelper.mostLikes(emptyList)
+    expect(result).toEqual(
+      {}
+    )
+  })
+  
+})
+
 describe('most likes', () => {
   test('of list with one is Edsger W. Dijkstra', () => {
     const result = listHelper.mostLikes(listWithOneBlog)
@@ -132,7 +162,7 @@ describe('most likes', () => {
     )
   })
 
-  test('of list with one is Edsger W. Dijkstra', () => {
+  test('of list with multiple is Edsger W. Dijkstra', () => {
     const result = listHelper.mostLikes(blogs)
     expect(result).toEqual(
       {
@@ -142,7 +172,7 @@ describe('most likes', () => {
     )
   })
 
-  test('of list with one is {}', () => {
+  test('of list with none is {}', () => {
     const result = listHelper.mostLikes(emptyList)
     expect(result).toEqual(
       {}
