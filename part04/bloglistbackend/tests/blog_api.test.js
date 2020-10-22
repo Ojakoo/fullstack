@@ -68,7 +68,7 @@ beforeEach(async () => {
     await noteObject.save()
 })
 
-test('blogs are returned as json', async () => {
+test('blogs are returned with correct amount', async () => {
     const response = await api.get('/api/blogs')
     expect(response.body).toHaveLength(initialBlogs.length)
 })
