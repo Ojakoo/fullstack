@@ -1,11 +1,11 @@
-const { application } = require('express')
+
 const mongoose = require('mongoose')
 const supertest = require('supertest')
-const { response } = require('../app')
 const app = require('../app')
 
 const api = supertest(app)
 const Blog = require('../models/blog')
+
 const initialBlogs = [
     { 
         _id: "5a422a851b54a676234d17f7", 
