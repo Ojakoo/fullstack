@@ -7,19 +7,6 @@ const usersInDb = async () => {
   return users.map(u => u.toJSON())
 }
 
-const login = async () => {
-  const newLogin = {
-    username: "root",
-    password: "sekret"
-  }
-
-  const resp = await api 
-    .post('/api/login')
-    .send(newLogin)
-
-  return resp.body.token
-}
-
 const initialBlogs = [
   { 
       _id: "5a422a851b54a676234d17f7", 
@@ -67,6 +54,6 @@ const initialBlogs = [
 ]
 
 module.exports = {
-  usersInDb, login, initialBlogs
+  usersInDb, initialBlogs
 }
 
