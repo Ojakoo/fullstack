@@ -1,11 +1,10 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lLXN0ciIsImlkIjoiNWY5MmU0YzJiYWVkYjE2YTU4YjhiZGQ1IiwiaWF0IjoxNjAzNDYyMzYwfQ.0KmwiKwLxGU87uYnfBBxXyOf7nNM4ZbiwDbXaH33TM8
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lLXN0ciIsImlkIjoiNWY5MmU0YzJiYWVkYjE2YTU4YjhiZGQ1IiwiaWF0IjoxNjAzNzAyNTAxfQ.k_0oiy0Nsjx31VY2uK6SO0YujqeG0sef_upG2HjdYCg
 
 {
   "title": "add and remove",
   "author": "author-str",
   "url": "url-string",
-  "likes": 1,
-  "userId": "5f91b84e2bdd746536d27e6e"
+  "likes": 1
 }
