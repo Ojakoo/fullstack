@@ -13,9 +13,7 @@ const App = () => {
   const [notification, setNotification] = useState(null)
   const [username, setUsername] = useState('username-str')
   const [password, setPassword] = useState('1234')
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
-  const [url, setUrl] = useState('')
+  
   const [user, setUser] = useState(null) 
 
   useEffect(() => {
@@ -29,7 +27,7 @@ const App = () => {
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
-      //blogService.setToken(user.token)
+      blogService.setToken(user.token)
     }
   }, [])
 
@@ -46,18 +44,6 @@ const App = () => {
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value)
-  }
-
-  const handleTitleChange = (event) => {
-    setTitle(event.target.value)
-  }
-
-  const handleAuthorChange = (event) => {
-    setAuthor(event.target.value)
-  }
-
-  const handleUrlChange = (event) => {
-    setUrl(event.target.value)
   }
 
   const handleLogin = async (event) => {
@@ -95,28 +81,50 @@ const App = () => {
     notify('Logged out :)')
   }
 
-  const handleCreateBlog = async (event) => {
-    event.preventDefault()
-    console.log('creating new blog')
+  const createBlog = async (blogObject) => {
+    //console.log('creating new blog')
+    //console.log(blogObject)
 
     try {
-      const blogObject = {
-        title: title,
-        author: author,
-        url: url,
-      }
-
       const returnedBlog = await blogService
         .create(blogObject)
 
       setBlogs(blogs.concat(returnedBlog))
+      setCreateBlogVisible(false)
 
-      notify(`a new blog ${title} by ${author} added`)
+      notify(`a new blog ${blogObject.title} by ${blogObject.author} added`)
 
-      setAuthor('')
-      setTitle('')
-      setUrl('')
+    } catch(error) {
+      notify(`${error.response.data.error}`, 'error')
+    }
+  }
 
+  const updateBlog = async (id, blogObject) => {
+    //console.log('updating object')
+    //console.log(blogObject)
+    //console.log(id)
+
+    try {
+      const returnedBlog = await blogService
+        .update(id, blogObject)
+
+      setBlogs(blogs.map(blog => blog.id !== returnedBlog.id ? blog : returnedBlog))
+
+    } catch(error) {
+      notify(`${error.response.data.error}`, 'error')
+    }
+  }
+
+  const removeBlog = async (id) => {
+    console.log('removing object')
+    console.log(id)
+
+    try {
+      await blogService
+        .remove(id)
+
+      setBlogs(blogs.filter(blog => blog.id !== id))
+      
     } catch(error) {
       notify(`${error.response.data.error}`, 'error')
     }
@@ -146,18 +154,10 @@ const App = () => {
         </div>
         <div style={showWhenVisible}>
           <h2>create new</h2>
-          <BlogForm 
-            handleCreateBlog={handleCreateBlog} 
-            title={title} 
-            handleTitleChange={handleTitleChange} 
-            author={author} 
-            handleAuthorChange={handleAuthorChange} 
-            url={url} 
-            handleUrlChange={handleUrlChange}
-          />
+          <BlogForm createBlog={createBlog} />
           <button onClick={() => setCreateBlogVisible(false)}>cancel</button>
         </div>
-        <Blogs blogs={blogs} />
+        <Blogs blogs={blogs} updateBlog={updateBlog} removeBlog={removeBlog} userName={user.username}/>
       </div>
     )
   }
