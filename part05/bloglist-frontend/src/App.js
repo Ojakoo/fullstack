@@ -8,6 +8,7 @@ import BlogForm from './components/BlogForm'
 import loginService from './services/login'
 
 const App = () => {
+  const [createBlogVisible, setCreateBlogVisible] = useState(false)
   const [blogs, setBlogs] = useState([])
   const [notification, setNotification] = useState(null)
   const [username, setUsername] = useState('username-str')
@@ -121,18 +122,46 @@ const App = () => {
     }
   }
 
-  const loginFormShow = () => (
-    <LoginForm handleLogin={handleLogin} username={username} handleUsernameChange={handleUsernameChange} password={password} handlePasswordChange={handlePasswordChange}/>
-  )
-
-  const loggedInShow = () => (
-    <div>
-      <LogoutForm handleLogout={handleLogout} user={user} />
-      <h2>create new</h2>
-      <BlogForm handleCreateBlog={handleCreateBlog} title={title} handleTitleChange={handleTitleChange} author={author} handleAuthorChange={handleAuthorChange} url={url} handleUrlChange={handleUrlChange}/>
-      <Blogs blogs={blogs} />
-    </div>
-  )
+  const loginFormShow = () => {
+    return (
+      <LoginForm 
+        handleLogin={handleLogin} 
+        username={username} 
+        handleUsernameChange={handleUsernameChange} 
+        password={password} 
+        handlePasswordChange={handlePasswordChange}
+      />
+    )
+  }
+    
+  const loggedInShow = () => {
+    const hideWhenVisible = { display: createBlogVisible ? 'none' : ''}
+    const showWhenVisible = { display: createBlogVisible ? '' : 'none' }
+    
+    return (
+      <div>
+        <LogoutForm handleLogout={handleLogout} user={user} />
+        <div style={hideWhenVisible}>
+          <button onClick={() => setCreateBlogVisible(true)}>new note</button>
+        </div>
+        <div style={showWhenVisible}>
+          <h2>create new</h2>
+          <BlogForm 
+            handleCreateBlog={handleCreateBlog} 
+            title={title} 
+            handleTitleChange={handleTitleChange} 
+            author={author} 
+            handleAuthorChange={handleAuthorChange} 
+            url={url} 
+            handleUrlChange={handleUrlChange}
+          />
+          <button onClick={() => setCreateBlogVisible(false)}>cancel</button>
+        </div>
+        <Blogs blogs={blogs} />
+      </div>
+    )
+  }
+    
 
   return (
     <div>
