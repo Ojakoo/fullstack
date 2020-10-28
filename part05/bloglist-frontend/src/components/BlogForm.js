@@ -35,7 +35,7 @@ const BlogForm = ({ createBlog }) => {
   }
 
   return (
-    <form onSubmit={addBlog}>
+    <form className="formDiv" onSubmit={addBlog}>
       <TitleForm title={title} handleTitleChange={handleTitleChange} />
       <AuthorForm author={author} handleAuthorChange={handleAuthorChange} />
       <UrlForm url={url} handleUrlChange={handleUrlChange} />

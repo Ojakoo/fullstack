@@ -3,7 +3,8 @@ import React from 'react'
 const UsernameForm = ({ username, handleUsernameChange }) => {
   return (
     <div>
-            username: <input
+      username: <input
+        id='username'
         value={username}
         onChange={handleUsernameChange}
       />

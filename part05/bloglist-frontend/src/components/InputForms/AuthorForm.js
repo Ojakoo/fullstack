@@ -3,7 +3,8 @@ import React from 'react'
 const AuthorForm = ({ author, handleAuthorChange }) => {
   return (
     <div>
-            author: <input
+      author: <input
+        id='author'
         value={ author }
         onChange={ handleAuthorChange }
       />

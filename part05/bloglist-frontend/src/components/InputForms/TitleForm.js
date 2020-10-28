@@ -3,7 +3,8 @@ import React from 'react'
 const TitleForm = ({ title, handleTitleChange }) => {
   return (
     <div>
-            title: <input
+      title: <input
+        id='title'
         value={title}
         onChange={handleTitleChange}
       />

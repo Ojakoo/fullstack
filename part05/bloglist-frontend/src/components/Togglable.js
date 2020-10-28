@@ -24,7 +24,7 @@ const Togglable = React.forwardRef((props, ref) => {
       </div>
       <div style={showWhenVisible}>
         {props.children}
-        <button onClick={toggleVisibility}>cancel</button>
+        <button onClick={toggleVisibility}>{props.cancelButtonLabel}</button>
       </div>
     </div>
   )
@@ -33,7 +33,8 @@ const Togglable = React.forwardRef((props, ref) => {
 })
 
 Togglable.propTypes = {
-  buttonLabel: PropTypes.string.isRequired
+  buttonLabel: PropTypes.string.isRequired,
+  cancelButtonLabel: PropTypes.string.isRequired
 }
 
 Togglable.displayName = 'Togglable'
