@@ -91,8 +91,10 @@ const App = () => {
       const returnedBlog = await blogService
         .create(blogObject)
 
+      //console.log('returned blog')
+      //console.log(returnedBlog)
+
       setBlogs(blogs.concat(returnedBlog))
-      //setCreateBlogVisible(false)
       blogFormRef.current.toggleVisibility()
 
       notify(`a new blog ${blogObject.title} by ${blogObject.author} added`)
@@ -111,6 +113,9 @@ const App = () => {
       const returnedBlog = await blogService
         .update(id, blogObject)
 
+      //console.log('return object')
+      //console.log(returnedBlog)
+
       setBlogs(blogs.map(blog => blog.id !== returnedBlog.id ? blog : returnedBlog))
 
     } catch(error) {
@@ -119,8 +124,8 @@ const App = () => {
   }
 
   const removeBlog = async (id) => {
-    console.log('removing object')
-    console.log(id)
+    //console.log('removing object')
+    //console.log(id)
 
     try {
       await blogService
