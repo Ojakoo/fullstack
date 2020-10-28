@@ -13,15 +13,15 @@ const App = () => {
   const [notification, setNotification] = useState(null)
   const [username, setUsername] = useState('username-str')
   const [password, setPassword] = useState('1234')
-  
-  const [user, setUser] = useState(null) 
+
+  const [user, setUser] = useState(null)
 
   const blogFormRef = useRef()
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
-    )  
+    )
   }, [])
 
   useEffect(() => {
@@ -59,7 +59,7 @@ const App = () => {
 
       window.localStorage.setItem(
         'loggedBlogappUser', JSON.stringify(user)
-      ) 
+      )
       blogService.setToken(user.token)
       setUser(user)
 
@@ -69,13 +69,13 @@ const App = () => {
       notify(`Hello ${user.name}, you are now logged in!`)
     } catch (error) {
       notify(`${error.response.data.error}`, 'error')
-    } 
+    }
   }
 
   const handleLogout = async (event) => {
     event.preventDefault()
     console.log('logging out')
-    
+
     window.localStorage.removeItem('loggedBlogappUser')
     blogService.setToken(null)
     setUser(null)
@@ -127,7 +127,7 @@ const App = () => {
         .remove(id)
 
       setBlogs(blogs.filter(blog => blog.id !== id))
-      
+
     } catch(error) {
       notify(`${error.response.data.error}`, 'error')
     }
@@ -135,16 +135,16 @@ const App = () => {
 
   const loginFormShow = () => {
     return (
-      <LoginForm 
-        handleLogin={handleLogin} 
-        username={username} 
-        handleUsernameChange={handleUsernameChange} 
-        password={password} 
+      <LoginForm
+        handleLogin={handleLogin}
+        username={username}
+        handleUsernameChange={handleUsernameChange}
+        password={password}
         handlePasswordChange={handlePasswordChange}
       />
     )
   }
-    
+
   const loggedInShow = () => {
     return (
       <div>
@@ -157,7 +157,7 @@ const App = () => {
       </div>
     )
   }
-    
+
 
   return (
     <div>

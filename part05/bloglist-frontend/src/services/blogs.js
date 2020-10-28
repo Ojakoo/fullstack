@@ -13,7 +13,7 @@ const getAll = () => {
 }
 
 const create = async (newObject) => {
-  const config = {
+  const config = {
     headers: { Authorization: token }
   }
   //console.log('creat with')
@@ -26,7 +26,7 @@ const create = async (newObject) => {
 }
 
 const update = async (id, replacementObject) => {
-  const config = {
+  const config = {
     headers: { Authorization: token }
   }
 
@@ -35,7 +35,7 @@ const update = async (id, replacementObject) => {
 }
 
 const remove = async (id) => {
-  const config = {
+  const config = {
     headers: { Authorization: token }
   }
 
