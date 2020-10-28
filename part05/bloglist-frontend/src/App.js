@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Blogs from './components/Blogs'
 import blogService from './services/blogs'
 import Notification from './components/Notification'
@@ -6,15 +6,17 @@ import LoginForm from './components/LoginForm'
 import LogoutForm from './components/LogoutForm'
 import BlogForm from './components/BlogForm'
 import loginService from './services/login'
+import Togglable from './components/Togglable'
 
 const App = () => {
-  const [createBlogVisible, setCreateBlogVisible] = useState(false)
   const [blogs, setBlogs] = useState([])
   const [notification, setNotification] = useState(null)
   const [username, setUsername] = useState('username-str')
   const [password, setPassword] = useState('1234')
   
   const [user, setUser] = useState(null) 
+
+  const blogFormRef = useRef()
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -90,7 +92,8 @@ const App = () => {
         .create(blogObject)
 
       setBlogs(blogs.concat(returnedBlog))
-      setCreateBlogVisible(false)
+      //setCreateBlogVisible(false)
+      blogFormRef.current.toggleVisibility()
 
       notify(`a new blog ${blogObject.title} by ${blogObject.author} added`)
 
@@ -143,20 +146,13 @@ const App = () => {
   }
     
   const loggedInShow = () => {
-    const hideWhenVisible = { display: createBlogVisible ? 'none' : ''}
-    const showWhenVisible = { display: createBlogVisible ? '' : 'none' }
-    
     return (
       <div>
         <LogoutForm handleLogout={handleLogout} user={user} />
-        <div style={hideWhenVisible}>
-          <button onClick={() => setCreateBlogVisible(true)}>new note</button>
-        </div>
-        <div style={showWhenVisible}>
+        <Togglable buttonLabel='new blog' ref={blogFormRef}>
           <h2>create new</h2>
           <BlogForm createBlog={createBlog} />
-          <button onClick={() => setCreateBlogVisible(false)}>cancel</button>
-        </div>
+        </Togglable>
         <Blogs blogs={blogs} updateBlog={updateBlog} removeBlog={removeBlog} userName={user.username}/>
       </div>
     )
