@@ -4,7 +4,7 @@ const UrlForm = ({ url, handleUrlChange }) => {
   return (
     <div>
       url: <input
-        id='url'
+        id='urlInput'
         value={ url }
         onChange={ handleUrlChange }
       />

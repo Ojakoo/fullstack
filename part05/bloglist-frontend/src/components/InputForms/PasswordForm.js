@@ -4,7 +4,7 @@ const UsernameForm = ({ password, handlePasswordChange }) => {
   return (
     <div>
       password: <input
-        id='password'
+        id='passwordInput'
         value={password}
         onChange={handlePasswordChange}
       />

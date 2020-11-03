@@ -40,7 +40,7 @@ const BlogForm = ({ createBlog }) => {
       <AuthorForm author={author} handleAuthorChange={handleAuthorChange} />
       <UrlForm url={url} handleUrlChange={handleUrlChange} />
       <div>
-        <button type="submit">create</button>
+        <button id="blogSubmitButton" type="submit">create</button>
       </div>
     </form>
   )

@@ -4,7 +4,7 @@ const AuthorForm = ({ author, handleAuthorChange }) => {
   return (
     <div>
       author: <input
-        id='author'
+        id='authorInput'
         value={ author }
         onChange={ handleAuthorChange }
       />

@@ -5,11 +5,11 @@ import PasswordForm from './InputForms/PasswordForm'
 
 const LoginForm = ({ handleLogin, username, handleUsernameChange, password, handlePasswordChange }) => {
   return (
-    <form onSubmit={handleLogin}>
+    <form id="loginForm" onSubmit={handleLogin}>
       <UsernameForm username={username} handleUsernameChange={handleUsernameChange} />
       <PasswordForm password={password} handlePasswordChange={handlePasswordChange} />
       <div>
-        <button type="submit">login</button>
+        <button id="loginButton" type="submit">login</button>
       </div>
     </form>
   )

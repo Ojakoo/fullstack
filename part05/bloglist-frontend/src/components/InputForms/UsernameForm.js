@@ -4,7 +4,7 @@ const UsernameForm = ({ username, handleUsernameChange }) => {
   return (
     <div>
       username: <input
-        id='username'
+        id='usernameInput'
         value={username}
         onChange={handleUsernameChange}
       />

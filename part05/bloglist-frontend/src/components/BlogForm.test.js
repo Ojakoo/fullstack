@@ -11,9 +11,9 @@ describe('Blogtest.js ', () => {
       <BlogForm createBlog={createBlog}/>
     )
 
-    const title = component.container.querySelector('#title')
-    const author = component.container.querySelector('#author')
-    const url = component.container.querySelector('#url')
+    const title = component.container.querySelector('#titleInput')
+    const author = component.container.querySelector('#authorInput')
+    const url = component.container.querySelector('#urlInput')
     const form = component.container.querySelector('form')
 
     fireEvent.change(title, { target: { value: 'title-str' } })

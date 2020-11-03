@@ -38,13 +38,13 @@ const Blog = ({ blog, updateBlog, removeBlog, userOwned }) => {
 
   return (
     <div className='blog' style={blogStyle}>
-      {blog.title} {blog.author} <button onClick={ () => setAllInfo(!allInfo)}>{ allInfo ? 'hide' : 'view' }</button>
+      {blog.title} {blog.author} <button id="viewButton" onClick={ () => setAllInfo(!allInfo)}>{ allInfo ? 'hide' : 'view' }</button>
       <div className='defaultHiddenContent' style={showWhenVisible}>
         {blog.url} <br/>
-        likes: {blog.likes} <button onClick={likeBlog}>like</button><br/>
+        likes: {blog.likes} <button id="likeBlogButton" onClick={likeBlog}>like</button><br/>
         {blog.user.username}
         <div style={showRemove}>
-          <button onClick={handleRemoveBlog}>remove</button>
+          <button id="removeBlogButton" onClick={handleRemoveBlog}>remove</button>
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ const TitleForm = ({ title, handleTitleChange }) => {
   return (
     <div>
       title: <input
-        id='title'
+        id='titleInput'
         value={title}
         onChange={handleTitleChange}
       />

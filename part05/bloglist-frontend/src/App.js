@@ -11,8 +11,8 @@ import Togglable from './components/Togglable'
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [notification, setNotification] = useState(null)
-  const [username, setUsername] = useState('username-str')
-  const [password, setPassword] = useState('1234')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
   const [user, setUser] = useState(null)
 
