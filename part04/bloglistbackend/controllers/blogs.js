@@ -41,7 +41,7 @@ blogsRouter.post('/', async (request, response, next) => {
   } else {
     const savedBlog = await blog
       .save()
-      
+
     user.blogs = user.blogs.concat(savedBlog._id)
     await user.save()
 
