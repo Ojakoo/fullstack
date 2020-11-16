@@ -1,3 +1,5 @@
+
+
 const anecdotesAtStart = [
   'If it hurts, do it more often',
   'Adding manpower to a late software project makes it later!',
@@ -34,12 +36,11 @@ const anecdoteReducer = (state = initialState, action) => {
     case 'NEW_ANECDOTE':
       return [ ...state, action.data ]
     default: 
-      return initialState
+      return state
   }
 }
 
 export const vote = (id) => {
-  console.log('vote', id)
   return {
     type: 'VOTE',
     id: id
