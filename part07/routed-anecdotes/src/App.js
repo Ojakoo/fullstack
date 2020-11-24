@@ -3,6 +3,27 @@ import {
   Switch, Route, Link, useRouteMatch, useHistory
 } from "react-router-dom"
 
+const useField = (name) => {
+  const [value, setValue] = useState('')
+
+  const onChange = (event) => {
+    setValue(event.target.value)
+  }
+
+  const reset = () => {
+    setValue('')
+  }
+
+  return {
+    reset,
+    tags:{
+      value,
+      name,
+      onChange,
+    }
+  }
+}
+
 const Menu = () => {
   const padding = {
     paddingRight: 5
@@ -63,18 +84,19 @@ const Footer = () => (
 )
 
 const CreateNew = (props) => {
-  const [content, setContent] = useState('')
-  const [author, setAuthor] = useState('')
-  const [info, setInfo] = useState('')
+  const content = useField('content')
+  const author = useField('author')
+  const info = useField('info')
 
   const history = useHistory()
 
   const handleSubmit = (e) => {
+    console.log(content.tags.value)
     e.preventDefault()
     props.addNew({
-      content,
-      author,
-      info,
+      content:content.tags.value,
+      author:author.tags.value,
+      info:info.tags.value,
       votes: 0
     })
     props.setNotification(`a new anectode ${content}`)
@@ -87,20 +109,21 @@ const CreateNew = (props) => {
   return (
     <div>
       <h2>create a new anecdote</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} onReset={ () => { content.reset(); author.reset() }} >
         <div>
           content
-          <input name='content' value={content} onChange={(e) => setContent(e.target.value)} />
+          <input {...content.tags} />
         </div>
         <div>
           author
-          <input name='author' value={author} onChange={(e) => setAuthor(e.target.value)} />
+          <input {...author.tags} />
         </div>
         <div>
           url for more info
-          <input name='info' value={info} onChange={(e)=> setInfo(e.target.value)} />
+          <input {...info.tags} />
         </div>
-        <button>create</button>
+        <button type="submit">create</button>
+        <button type="reset">reset</button>
       </form>
     </div>
   )
