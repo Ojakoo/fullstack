@@ -91,7 +91,6 @@ const CreateNew = (props) => {
   const history = useHistory()
 
   const handleSubmit = (e) => {
-    console.log(content.tags.value)
     e.preventDefault()
     props.addNew({
       content:content.tags.value,
