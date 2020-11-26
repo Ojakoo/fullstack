@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { useDispatch } from 'react-redux'
+
 import Blogs from './components/Blogs'
 import blogService from './services/blogs'
 import Notification from './components/Notification'
@@ -8,11 +10,14 @@ import BlogForm from './components/BlogForm'
 import loginService from './services/login'
 import Togglable from './components/Togglable'
 
+import { showNotification } from './reducers/notificationReducer'
+
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [notification, setNotification] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+
+  const dispatch = useDispatch()
 
   const [user, setUser] = useState(null)
 
@@ -32,13 +37,6 @@ const App = () => {
       blogService.setToken(user.token)
     }
   }, [])
-
-  const notify = (message, type='success') => {
-    setNotification({ message, type })
-    setTimeout(() => {
-      setNotification(null)
-    }, 5000)
-  }
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value)
@@ -66,21 +64,21 @@ const App = () => {
       setUsername('')
       setPassword('')
 
-      notify(`Hello ${user.name}, you are now logged in!`)
+      console.log('log in')
+      dispatch(showNotification(`Hello ${user.name}, you are now logged in!`, 'success', 3))
     } catch (error) {
-      notify(`${error.response.data.error}`, 'error')
+      dispatch(showNotification(`${error.response.data.error}`, 'error', 3))
     }
   }
 
   const handleLogout = async (event) => {
     event.preventDefault()
-    console.log('logging out')
 
     window.localStorage.removeItem('loggedBlogappUser')
     blogService.setToken(null)
     setUser(null)
 
-    notify('Logged out :)')
+    dispatch(showNotification('Logged out :)', 'success', 3))
   }
 
   const createBlog = async (blogObject) => {
@@ -97,10 +95,10 @@ const App = () => {
       setBlogs(blogs.concat(returnedBlog))
       blogFormRef.current.toggleVisibility()
 
-      notify(`a new blog ${blogObject.title} by ${blogObject.author} added`)
+      dispatch(showNotification(`a new blog ${blogObject.title} by ${blogObject.author} added`, 'success', 3))
 
     } catch(error) {
-      notify(`${error.response.data.error}`, 'error')
+      dispatch(showNotification(`${error.response.data.error}`, 'error', 3))
     }
   }
 
@@ -119,7 +117,7 @@ const App = () => {
       setBlogs(blogs.map(blog => blog.id !== returnedBlog.id ? blog : returnedBlog))
 
     } catch(error) {
-      notify(`${error.response.data.error}`, 'error')
+      dispatch(showNotification(`${error.response.data.error}`, 'error', 3))
     }
   }
 
@@ -134,7 +132,7 @@ const App = () => {
       setBlogs(blogs.filter(blog => blog.id !== id))
 
     } catch(error) {
-      notify(`${error.response.data.error}`, 'error')
+      dispatch(showNotification(`${error.response.data.error}`, 'error', 3))
     }
   }
 
@@ -167,7 +165,7 @@ const App = () => {
   return (
     <div>
       <h2>blogs</h2>
-      <Notification notification={notification} />
+      <Notification />
       { user === null && loginFormShow() }
       { user !== null && loggedInShow() }
     </div>
