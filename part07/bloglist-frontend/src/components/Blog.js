@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { removeBlog, updateBlog } from '../reducers/blogReducer'
+import { Link } from 'react-router-dom'
+
 
 const Blog = ({ blog, userOwned }) => {
   const [ allInfo, setAllInfo ] = useState(false)
@@ -42,7 +44,7 @@ const Blog = ({ blog, userOwned }) => {
 
   return (
     <div className='blog' style={blogStyle}>
-      {blog.title} {blog.author} <button id="viewButton" onClick={ () => setAllInfo(!allInfo)}>{ allInfo ? 'hide' : 'view' }</button>
+      <Link to={`/blogs/${blog.id}`}>{blog.title} {blog.author}</Link> <button id="viewButton" onClick={ () => setAllInfo(!allInfo)}>{ allInfo ? 'hide' : 'view' }</button>
       <div className='defaultHiddenContent' style={showWhenVisible}>
         {blog.url} <br/>
         likes: {blog.likes} <button id="likeBlogButton" onClick={likeBlog}>like</button><br/>

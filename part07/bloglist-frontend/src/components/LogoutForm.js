@@ -1,6 +1,7 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { logout } from '../reducers/userReducer'
+import { logout } from '../reducers/loginReducer'
 
 const LogoutForm = () => {
   const dispatch = useDispatch()
@@ -14,7 +15,13 @@ const LogoutForm = () => {
   return (
     <form onSubmit={handleLogout}>
       <div>
-        <p>{user.name} logged in <button id="logoutButton" type="submit">logout</button></p>
+        <p>
+          <Link to="/">blogs</Link>
+          {' '}
+          <Link to="/users">users</Link>
+          {' '}
+          {user.name} logged in <button id="logoutButton" type="submit">logout</button>
+        </p>
       </div>
     </form>
   )

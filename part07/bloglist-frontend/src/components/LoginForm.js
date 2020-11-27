@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { login } from '../reducers/userReducer'
+import { login } from '../reducers/loginReducer'
 
 import UsernameForm from './InputForms/UsernameForm'
 import PasswordForm from './InputForms/PasswordForm'
