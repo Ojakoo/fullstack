@@ -1,8 +1,7 @@
 POST http://localhost:3003/api/comments
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lLXN0ciIsImlkIjoiNWY5MmU0YzJiYWVkYjE2YTU4YjhiZGQ1IiwiaWF0IjoxNjA2OTIwMzA2fQ.1xVp10y1uWmRBJmo_PLZafSNUXdpXLcQONL3PUjT1Y0
 
 {
-  "content": "comment",
+  "content": "new comment",
   "blog_id": "5fbfb86d599dc0d4e7820cd6"
 }

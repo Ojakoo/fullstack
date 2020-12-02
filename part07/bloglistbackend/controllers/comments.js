@@ -1,4 +1,3 @@
-const jwt = require('jsonwebtoken')
 const commentsRouter = require('express').Router()
 const Comment = require('../models/comment')
 const Blog = require('../models/blog')
@@ -10,12 +9,6 @@ commentsRouter.get('/', async (request, response) => {
 })
 
 commentsRouter.post('/', async (request, response, next) => {
-
-    const decodedToken = jwt.verify(request.token, process.env.SECRET)
-
-    if (!request.token || !decodedToken.id) {
-        return response.status(401).json({ error: 'token missing or invalid' })
-    }
 
     const body = request.body
 
