@@ -17,7 +17,6 @@ var timeoutID
 
 export const showNotification = (notification, notification_type, time) => {
   return async dispatch => {
-    console.log(notification)
     clearTimeout(timeoutID)
     dispatch({
       type: 'SET_NOTIFICATION',
