@@ -6,7 +6,23 @@ interface ReturnData {
   ratingDescription: string,
   target: number,
   average: number
-} 
+}
+
+const parseExerciseArguments = (args: Array<string>): Array<number> => {
+  if (args.length < 3) throw new Error('Not enough arguments');
+
+  let returnArray: Array<number> = [];
+
+  args.slice(2).forEach( arg => {
+    if ( !isNaN(Number(arg)) ) {
+      returnArray.push( Number(arg) );
+    } else {
+      throw new Error('Provided values were not numbers!');
+    }
+  });
+
+  return returnArray;
+}
 
 const calculateExercises = (exerciseHours: Array<number> ): ReturnData => {
   const returnObject = {
@@ -55,4 +71,11 @@ const calculateExercises = (exerciseHours: Array<number> ): ReturnData => {
   return returnObject;
 }
 
-console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1]));
+try {
+  const array = parseExerciseArguments(process.argv);
+  console.log(array);
+  console.log(calculateExercises(array));
+} catch (e) {
+  console.log('Error, something bad happened, message: ', e.message);
+}
+
