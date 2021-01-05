@@ -11,11 +11,11 @@ const parseBmiArguments = (args: Array<string>): Values => {
     return {
     h: Number(args[2]),
     w: Number(args[3])
-    }
+    };
   } else {
     throw new Error('Provided values were not numbers!');
   }
-}
+};
 
 const calculateBmi = (h: number, w: number): string => {
 const bmi = w / ( (h * h) / 10000 );
@@ -29,7 +29,7 @@ const bmi = w / ( (h * h) / 10000 );
   } else {
     return ('Obese (not healthy weight)');
   }
-}
+};
 
 try {
   const { h, w } = parseBmiArguments(process.argv);

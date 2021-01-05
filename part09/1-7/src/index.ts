@@ -9,11 +9,11 @@ app.get('/hello', (_req, res) => {
 
 app.get('/bmi', (req, res) => {
   try {
-    const h: number = Number(req.query.height);
-    const w: number = Number(req.query.weight);
+    const h = Number(req.query.height);
+    const w = Number(req.query.weight);
 
-    if (!h || !w) throw new Error('One or more values missing!')
-    if (isNaN(h) || isNaN(w)) throw new Error('Provided values were not numbers!')
+    if (!h || !w) throw new Error('One or more values missing!');
+    if (isNaN(h) || isNaN(w)) throw new Error('Provided values were not numbers!');
 
     res.send({
       weight: w,
@@ -23,9 +23,9 @@ app.get('/bmi', (req, res) => {
   } catch (e) {
     res.send({
       error: e.message
-    })
+    });
   }
-})
+});
 
 const PORT = 3001;
 

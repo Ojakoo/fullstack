@@ -11,7 +11,7 @@ interface ReturnData {
 const parseExerciseArguments = (args: Array<string>): Array<number> => {
   if (args.length < 3) throw new Error('Not enough arguments');
 
-  let returnArray: Array<number> = [];
+  const returnArray: Array<number> = [];
 
   args.slice(2).forEach( arg => {
     if ( !isNaN(Number(arg)) ) {
@@ -22,7 +22,7 @@ const parseExerciseArguments = (args: Array<string>): Array<number> => {
   });
 
   return returnArray;
-}
+};
 
 const calculateExercises = (exerciseHours: Array<number> ): ReturnData => {
   const returnObject = {
@@ -33,7 +33,7 @@ const calculateExercises = (exerciseHours: Array<number> ): ReturnData => {
     ratingDescription: '',
     target: 2,
     average: 0
-  }
+  };
 
   let sum = 0;
 
@@ -44,7 +44,7 @@ const calculateExercises = (exerciseHours: Array<number> ): ReturnData => {
       returnObject.trainingDays = returnObject.trainingDays + 1;
       sum += dailyHours;
     }
-  })
+  });
 
   //set average
   if ( returnObject.periodLength > 0 ) {
@@ -69,7 +69,7 @@ const calculateExercises = (exerciseHours: Array<number> ): ReturnData => {
   }
     
   return returnObject;
-}
+};
 
 try {
   const array = parseExerciseArguments(process.argv);
@@ -78,4 +78,3 @@ try {
 } catch (e) {
   console.log('Error, something bad happened, message: ', e.message);
 }
-
