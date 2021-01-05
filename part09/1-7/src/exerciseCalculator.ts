@@ -24,14 +24,14 @@ const parseExerciseArguments = (args: Array<string>): Array<number> => {
   return returnArray;
 };
 
-const calculateExercises = (exerciseHours: Array<number> ): ReturnData => {
+const calculateExercises = (exerciseHours: Array<number>, target: number ): ReturnData => {
   const returnObject = {
     periodLength: 0,
     trainingDays: 0,
     success: false,
     rating: 0,
     ratingDescription: '',
-    target: 2,
+    target: target,
     average: 0
   };
 
@@ -64,7 +64,7 @@ const calculateExercises = (exerciseHours: Array<number> ): ReturnData => {
   }
 
   //check success
-  if ( returnObject.rating >= returnObject.target ) {
+  if ( returnObject.average >= returnObject.target ) {
       returnObject.success = true;
   }
     
@@ -73,8 +73,11 @@ const calculateExercises = (exerciseHours: Array<number> ): ReturnData => {
 
 try {
   const array = parseExerciseArguments(process.argv);
-  console.log(array);
-  console.log(calculateExercises(array));
+  console.log(calculateExercises(array, 2));
 } catch (e) {
+  // errors not typesafe but not better solution represented
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   console.log('Error, something bad happened, message: ', e.message);
 }
+
+export { calculateExercises, ReturnData };

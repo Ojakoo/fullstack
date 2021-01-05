@@ -1,3 +1,4 @@
+
 interface Values {
   h: number;
   w: number;
@@ -18,7 +19,7 @@ const parseBmiArguments = (args: Array<string>): Values => {
 };
 
 const calculateBmi = (h: number, w: number): string => {
-const bmi = w / ( (h * h) / 10000 );
+  const bmi = w / ( (h * h) / 10000 );
   //console.log("BMI:", bmi);
   if (bmi < 18.5) {
     return ('Underweight (not healthy weight)');
@@ -35,6 +36,8 @@ try {
   const { h, w } = parseBmiArguments(process.argv);
   console.log(calculateBmi(h, w));
 } catch (e) {
+  // errors not typesafe but not better solution represented
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   console.log('Error, something bad happened, message: ', e.message);
 }
 
