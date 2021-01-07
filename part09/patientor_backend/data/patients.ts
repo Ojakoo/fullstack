@@ -1,4 +1,4 @@
-import { Patient } from "../src/types";
+import { Patient } from "../src/types";
 
 const patientData: Array<Patient> = [
     {
@@ -41,6 +41,6 @@ const patientData: Array<Patient> = [
         "gender": "male",
         "occupation": "Digital evangelist"
     }
-]
+];
 
 export default patientData;
