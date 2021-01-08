@@ -9,10 +9,17 @@ export interface Patient {
     name: string,
     dateOfBirth: string,
     ssn: string,
-    gender: string,
+    gender: Gender,
     occupation: string
 }
 
 export type PublicPatient = Omit<Patient, 'ssn'>;
 
 export type NewPatient = Omit<Patient, 'id'>;
+
+export enum Gender {
+  Other = 'other',
+  Male = 'male',
+  Female = 'female',
+  ApacheAttackHelicopter = 'apache attack helicopter',
+}
