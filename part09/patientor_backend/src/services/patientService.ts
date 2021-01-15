@@ -11,10 +11,27 @@ const getPatients = (): Array<PublicPatient> => {
   }));
 };
 
+const getPatientByID = (id: string): Patient | undefined => {
+  const patient = patientData.find(patient => patient.id === id);
+  if ( patient ) {
+    return {
+      name: patient.name,
+      ssn: patient.ssn,
+      dateOfBirth: patient.dateOfBirth,
+      gender: patient.gender,
+      occupation: patient.occupation,
+      entries: patient.entries,
+      id: patient.id
+    };
+  }
+  console.log(patient);
+  return patient;
+};
+
 const addPatient = (patient: NewPatient): Patient => {
 
   const newPatient = {
-    id: "id",
+    id: patient.name + patient.dateOfBirth,
     ...patient
   };
 
@@ -24,5 +41,6 @@ const addPatient = (patient: NewPatient): Patient => {
 
 export default {
   getPatients,
+  getPatientByID,
   addPatient
 };
