@@ -1,7 +1,9 @@
 import React from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { Header, Icon } from "semantic-ui-react";
+
+import PatientTitle from "./PatientTitle";
+import PatientEntries from "./PatientEntries";
 
 import { apiBaseUrl } from "../constants";
 import { setPatient, useStateValue } from "../state";
@@ -25,40 +27,18 @@ const PatientPage: React.FC = () => {
     };
     fetchPatient();
   }, [id, dispatch]);
-  
+
   if (patient) {
-    // joo tää on tunkki mut pitää mennä kokouksee
-    if (patient.gender === "male") {
-      return (
-        <div>
-          <Header as="h2">{patient.name}  <Icon name={"mars"}/></Header>
-          <p>
-            ssn: {patient.ssn} <br/>
-            occupation: {patient.occupation}
-          </p>
-        </div>
-      );
-    } else if (patient.gender === "female") {
-        return (
-          <div>
-            <Header as="h2">{patient.name}  <Icon name={"venus"}/></Header>
-            <p>
-              ssn: {patient.ssn} <br/>
-              occupation: {patient.occupation}
-            </p>
-          </div>
-        );
-    } else {
-      return (
-        <div>
-          <Header as="h2">{patient.name}  <Icon name={"genderless"}/></Header>
-          <p>
-            ssn: {patient.ssn} <br/>
-            occupation: {patient.occupation}
-          </p>
-        </div>
-      );
-    }
+    return (
+      <div>
+        <PatientTitle name={patient.name} gender={patient.gender}/>
+        <p>
+          ssn: {patient.ssn} <br/>
+          occupation: {patient.occupation}
+        </p>
+        <PatientEntries entries={patient.entries}/>
+      </div>
+    );
   } else {
     return (
       <></>
