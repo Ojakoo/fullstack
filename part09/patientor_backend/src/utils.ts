@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { NewPatient, Gender } from './types';
+import { NewPatient, Gender, Entry } from './types';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const toNewPatient = (object: any): NewPatient => {
@@ -11,7 +11,7 @@ const toNewPatient = (object: any): NewPatient => {
     ssn: parseSsn(object.ssn),
     gender: parseGender(object.gender),
     occupation: parseOccupation(object.occupation),
-    entries: []
+    entries: parseEntries(object.entries)
   };
   
   return newPatient;
@@ -53,6 +53,13 @@ const parseOccupation = (occupation: any): string => {
   return occupation;
 };
 
+const parseEntries = (entries: any[]): Entry[] => {
+  if (!entries || !isEntryArray(entries)) {
+    throw new Error('Missing entries' + entries);
+  }
+  return entries;
+};
+
 //typeguards
 const isString = (text: any): text is string => {
   return typeof text === 'string' || text instanceof String;
@@ -60,6 +67,28 @@ const isString = (text: any): text is string => {
 
 const isGender = (param: any): param is Gender => {
   return Object.values(Gender).includes(param);
+};
+
+const isEntryArray = (param: any[]): param is Entry[] => {
+  for (const entry of param) {
+    if ( !isEntry(entry) ) {
+      return ( false );
+    }
+  }
+  return ( true );
+};
+
+const isEntry = (param: any): param is Entry => {
+  switch (param.type) {
+    case "Hospital":
+      return ( true );
+    case "OccupationalHealthcare":
+      return ( true );
+    case "HealthCheck":
+      return ( true );
+    default:
+      return ( false );
+  }
 };
 
 export default toNewPatient;
