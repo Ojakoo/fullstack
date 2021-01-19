@@ -30,7 +30,8 @@ export const AddPatientForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
         ssn: "",
         dateOfBirth: "",
         occupation: "",
-        gender: Gender.Other
+        gender: Gender.Other,
+        entries: []
       }}
       onSubmit={onSubmit}
       validate={values => {

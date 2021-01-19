@@ -15,7 +15,7 @@ const PatientEntry: React.FC<PatientEntryProps> = ({ entry }) => {
         <p>{entry.date} {entry.description}</p>
         <ul>
           {entry.diagnosisCodes?.map(diagnosiscode =>
-            <li>{diagnosiscode} {diagnoses[diagnosiscode] ? diagnoses[diagnosiscode].name : null}</li>
+            <li key={diagnosiscode}>{diagnosiscode} {diagnoses[diagnosiscode] ? diagnoses[diagnosiscode].name : null}</li>
           )}
         </ul>
       </div>

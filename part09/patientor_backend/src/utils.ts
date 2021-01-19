@@ -118,6 +118,7 @@ const parseSpecialist = (specialist: any): string => {
 };
 
 const parseDischarge = (discharge: any): Discharge => {
+  console.log(!discharge, !isDischarge(discharge));
   if (!discharge || !isDischarge(discharge)) {
     throw new Error('Incorrect or missing discharge' + discharge);  
   }
@@ -184,7 +185,7 @@ const isEntry = (param: any): param is Entry => {
 };
 
 const isDischarge = (param: any): param is Discharge => {
-  return !param.date || !isString(param.date) || !param.criteria || !isString(param.criteria);
+  return !(!param.date || !isString(param.date) || !param.criteria || !isString(param.criteria));
 };
 
 const isSickLeave = (param: any): param is SickLeave => {

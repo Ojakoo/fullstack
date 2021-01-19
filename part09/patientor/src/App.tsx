@@ -12,6 +12,7 @@ import PatientPage from "./PatientPage";
 
 const App: React.FC = () => {
   const [, dispatch] = useStateValue();
+
   React.useEffect(() => {
     axios.get<void>(`${apiBaseUrl}/ping`);
 
@@ -39,8 +40,6 @@ const App: React.FC = () => {
     fetchPatientList();
     fetchDiagnoses();
   }, [dispatch]);
-
-
 
   return (
     <div className="App">
