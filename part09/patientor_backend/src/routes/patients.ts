@@ -25,7 +25,6 @@ router.post('/', (req, res) => {
 });
 
 router.post('/:id/entries', (req, res) => {
-  console.log(req);
   try {
     const id = req.params.id;
     const newEntry = toNewEntry(req.body);

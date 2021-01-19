@@ -2,6 +2,15 @@ import React from "react";
 import { ErrorMessage, Field, FieldProps, FormikProps } from "formik";
 import { Dropdown, DropdownProps, Form } from "semantic-ui-react";
 import { Diagnosis, Gender } from "../types";
+import { HospitalEntryFormValues } from "./Hospital/AddHospitalEntryForm";
+import { OccupationalEntryFormValues } from "./Occupational/AddOccupationEntryForm";
+import { HealthEntryFormValues } from "./Health/AddHealthEntryForm";
+
+//entry form type used by frontend
+export type EntryFormValues =
+  | HospitalEntryFormValues
+  | OccupationalEntryFormValues
+  | HealthEntryFormValues;
 
 // structure of a single option
 export type GenderOption = {

@@ -2,36 +2,37 @@ import React from "react";
 import { Grid, Button } from "semantic-ui-react";
 import { Field, Formik, Form } from "formik";
 
-import { TextField } from "./FormField";
-import { HospitalEntry } from "../types";
-import { DiagnosisSelection } from "../AddPatientModal/FormField";
-import { useStateValue } from "../state";
+import { TextField } from "../FormField";
+import { OccupationalHealthcareEntry } from "../../types";
+import { DiagnosisSelection } from "../FormField";
+import { useStateValue } from "../../state";
 
 /*
  * use type Patient, but omit id and entries,
  * because those are irrelevant for new patient object.
  */
-export type EntryFormValues = Omit<HospitalEntry, "id" | "type">;
+export type OccupationalEntryFormValues = Omit<OccupationalHealthcareEntry, "id">;
 
 interface Props {
-  onSubmit: (values: EntryFormValues) => void;
+  onSubmit: (values: OccupationalEntryFormValues) => void;
   onCancel: () => void;
 }
 
-export const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
+export const AddOccupationalEntryForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
   const [{ diagnoses }] = useStateValue();
 
   return (
     <Formik
       initialValues={{
-        type: "Hospital",
+        type: "OccupationalHealthcare",
         description: "",
         date: "",
         specialist: "",
         diagnosisCodes: [],
-        discharge: {
-          date: "",
-          criteria: ""
+        employerName: "",
+        sickLeave: {
+          startDate: "",
+          endDate: ""
         }
       }}
       onSubmit={onSubmit}
@@ -72,15 +73,21 @@ export const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
               component={TextField}
             />
             <Field
-              label="Discharge Date"
-              placeholder="Date"
-              name="discharge.date"
+              label="Employer Name"
+              placeholder="Employer Name"
+              name="employerName"
               component={TextField}
             />
             <Field
-              label="Discharge Criteria"
-              placeholder="Criteria"
-              name="discharge.criteria"
+              label="Sick Leave Start Date"
+              placeholder="Start Date"
+              name="sickLeave.startDate"
+              component={TextField}
+            />
+            <Field
+              label="Sick Leave End Date"
+              placeholder="End Date"
+              name="sickLeave.endDate"
               component={TextField}
             />
             <DiagnosisSelection 
@@ -112,4 +119,4 @@ export const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
   );
 };
 
-export default AddEntryForm;
+export default AddOccupationalEntryForm;

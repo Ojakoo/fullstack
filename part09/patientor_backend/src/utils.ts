@@ -38,7 +38,7 @@ export const toNewEntry = (object: any): NewEntry => {
         diagnosisCodes: parseDiagnosisCodes(object.diagnosisCodes),
         healthCheckRating: parseHealthCheckRating(object.healthCheckRating)
       };
-    case "OccupationalHealhcare":
+    case "OccupationalHealthcare":
       return {
         type: "OccupationalHealthcare",
         description: parseDescription(object.description),
@@ -118,7 +118,6 @@ const parseSpecialist = (specialist: any): string => {
 };
 
 const parseDischarge = (discharge: any): Discharge => {
-  console.log(!discharge, !isDischarge(discharge));
   if (!discharge || !isDischarge(discharge)) {
     throw new Error('Incorrect or missing discharge' + discharge);  
   }
@@ -140,7 +139,7 @@ const parseEmployerName = (employerName: any): string => {
 };
 
 const parseHealthCheckRating = (healthCheckRating: any): HealthCheckRating => {
-  if (!healthCheckRating || !isHealthCheckRating(healthCheckRating)) {
+  if ((healthCheckRating && healthCheckRating !== 0) || !isHealthCheckRating(healthCheckRating)) {
     throw new Error('Incorrect or missing healthCheckRating' + healthCheckRating);
   }
   return healthCheckRating;
@@ -189,7 +188,7 @@ const isDischarge = (param: any): param is Discharge => {
 };
 
 const isSickLeave = (param: any): param is SickLeave => {
-  return !param.startDate || !isString(param.startDate) || !param.endDate || !isString(param.endDate);
+  return !(!param.startDate || !isString(param.startDate) || !param.endDate || !isString(param.endDate));
 };
 
 const isHealthCheckRating = (param: any): param is HealthCheckRating => {
