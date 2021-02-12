@@ -3,7 +3,11 @@ import { useQuery } from '@apollo/client'
 import { ALL_BOOKS } from '../quaries'
 
 const Books = (props) => {
-  const result = useQuery(ALL_BOOKS)
+  const result = useQuery(ALL_BOOKS, {
+    onError: (error) => {
+      console.log(error.graphQLErrors[0].message)
+    }
+  })
 
   if (!props.show) {
     return null
@@ -30,7 +34,7 @@ const Books = (props) => {
           {result.data.allBooks.map(a =>
             <tr key={a.title}>
               <td>{a.title}</td>
-              <td>{a.author}</td>
+              <td>{a.author.name}</td>
               <td>{a.published}</td>
             </tr>
           )}

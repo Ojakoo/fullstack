@@ -149,8 +149,6 @@ const resolvers = {
       }
 
       const author = await Author.findOne({ name: { $eq : args.name } })
-      console.log(author)
-      console.log(args)
 
       if (!author) {
         return null
