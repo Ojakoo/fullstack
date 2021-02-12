@@ -1,6 +1,6 @@
 const config = require('./config')
 const mongoose = require('mongoose')
-const { ApolloServer, gql, UserInputError } = require('apollo-server')
+const { ApolloServer, gql, UserInputError, AuthenticationError } = require('apollo-server')
 const jwt = require('jsonwebtoken')
 
 const JWT_SECRET = 'yesyesthisshouldnotbeingitbutisanyways'
@@ -104,9 +104,12 @@ const resolvers = {
     }
   },
   Mutation: {
-    addBook: async (root, args) => {
-      console.log("enter")
+    addBook: async (root, args, context) => {
       try {
+        if ( !context.currentUser ) {
+          throw new AuthenticationError("not logged in")
+        }
+
         let author = await Author.findOne({ name: { $eq : args.author }})
 
         if ( !author ) {
@@ -140,7 +143,11 @@ const resolvers = {
       }
       return author
     },
-    editAuthor: async (root, args) => {
+    editAuthor: async (root, args, context) => {
+      if ( !context.currentUser ) {
+        throw new AuthenticationError("not logged in")
+      }
+
       const author = await Author.findOne({ name: { $eq : args.name } })
       console.log(author)
       console.log(args)
